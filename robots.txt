@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOUR_USERNAME.github.io/AKYRAWAVE/sitemap.xml
+Sitemap: https://takachan-hub.github.io/AKYRAWAVE/sitemap.xml
