@@ -18,7 +18,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
 }
