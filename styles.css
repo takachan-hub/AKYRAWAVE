@@ -280,7 +280,177 @@ footer {
   transform: translateY(0);
 }
 
+/* ── First Release Announcement ── */
+#release-announce {
+  position: relative;
+  z-index: 1;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.announce-inner {
+  display: inline-block;
+  padding: 40px 56px;
+  border: 1px solid rgba(124, 106, 255, 0.35);
+  border-radius: 20px;
+  background: rgba(124, 106, 255, 0.06);
+  box-shadow: 0 0 60px rgba(124, 106, 255, 0.1), inset 0 0 40px rgba(0, 212, 255, 0.03);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.announce-eyebrow {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 16px;
+}
+
+.announce-date {
+  font-size: clamp(32px, 6vw, 52px);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, #fff 0%, var(--accent1) 60%, var(--accent2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+
+.announce-text {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.8;
+  letter-spacing: 0.08em;
+}
+
+.announce-text-en {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+}
+
+@media (max-width: 640px) {
+  .announce-inner { padding: 32px 28px; }
+}
+
+/* ── Listen & Use sections shared ── */
+#listen,
+#use-content {
+  position: relative;
+  z-index: 1;
+  padding: 80px 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.section-title {
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.section-sub {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  margin-bottom: 48px;
+}
+
+/* ── Platform tags ── */
+.platform-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.platform-tag {
+  font-size: 12px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  background: rgba(124, 106, 255, 0.07);
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: all 0.25s ease;
+}
+
+.platform-tag:hover {
+  background: rgba(124, 106, 255, 0.18);
+  border-color: rgba(124, 106, 255, 0.4);
+  color: #fff;
+}
+
+/* ── Use in content ── */
+.use-text {
+  font-size: clamp(15px, 2vw, 19px);
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(232,232,240,0.85);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.use-text-ja {
+  font-size: clamp(14px, 1.8vw, 17px);
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 48px;
+}
+
+.social-badges {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-badge {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 28px;
+  border-radius: 30px;
+  letter-spacing: 0.1em;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.social-badge.tiktok {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text);
+}
+
+.social-badge.instagram {
+  background: rgba(255, 106, 245, 0.07);
+  border-color: rgba(255, 106, 245, 0.25);
+  color: var(--accent3);
+}
+
+.social-badge.youtube {
+  background: rgba(0, 212, 255, 0.07);
+  border-color: rgba(0, 212, 255, 0.25);
+  color: var(--accent2);
+}
+
+.social-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(124, 106, 255, 0.15);
+}
+
 /* ── Mobile ── */
 @media (max-width: 640px) {
   nav { padding: 16px 24px; }
+  .social-badges { gap: 10px; }
 }
