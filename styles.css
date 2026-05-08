@@ -117,6 +117,16 @@ nav.visible {
   filter: drop-shadow(0 0 24px rgba(124,106,255,0.5)) drop-shadow(0 0 60px rgba(0,212,255,0.2));
 }
 
+.hero-kana {
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 1s 1.0s ease forwards;
+}
+
 .hero-eyebrow {
   font-size: 11px;
   letter-spacing: 0.5em;
