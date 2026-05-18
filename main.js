@@ -39,7 +39,9 @@ class Particle {
   }
 }
 
-for (let i = 0; i < 180; i++) particles.push(new Particle());
+// モバイルは負荷軽減のためパーティクル数を削減
+const PARTICLE_COUNT = window.innerWidth < 768 ? 60 : 180;
+for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
 function animate() {
   ctx.clearRect(0, 0, W, H);
