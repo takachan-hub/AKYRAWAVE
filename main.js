@@ -40,7 +40,7 @@ class Particle {
 }
 
 // モバイルは負荷軽減のためパーティクル数を削減
-const PARTICLE_COUNT = window.innerWidth < 768 ? 60 : 180;
+const PARTICLE_COUNT = window.innerWidth < 768 ? 60 : 150;
 for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
 function animate() {
@@ -48,7 +48,12 @@ function animate() {
   particles.forEach(p => { p.update(); p.draw(); });
   requestAnimationFrame(animate);
 }
-animate();
+// 初回描画の後にパーティクルを開始（初期レンダリングをブロックしない）
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(animate, { timeout: 1000 });
+} else {
+  setTimeout(animate, 100);
+}
 
 // ── Nav: ヒーローを過ぎたら表示 ──
 const nav   = document.querySelector('nav');
