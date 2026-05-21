@@ -521,6 +521,16 @@ footer {
 @media (max-width: 640px) {
   nav { padding: 16px 24px; }
   .social-badges { gap: 10px; }
+
+  /* モバイルGPU負荷軽減：重いblurエフェクトを無効化 */
+  .orb {
+    display: none;
+  }
+  .hero-logo-glow {
+    filter: none;
+    animation: none;
+    background: none;
+  }
 }
   </style>
 </head>
