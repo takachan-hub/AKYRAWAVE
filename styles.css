@@ -333,6 +333,7 @@ footer {
 }
 
 .platform-tag {
+  text-decoration: none;
   font-size: 12px;
   padding: 6px 16px;
   border-radius: 20px;
