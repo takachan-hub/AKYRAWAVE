@@ -536,10 +536,95 @@ footer {
   box-shadow: 0 8px 24px rgba(124, 106, 255, 0.15);
 }
 
+/* ── Members ── */
+#members {
+  position: relative;
+  z-index: 1;
+  padding: 80px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.member-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.member-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--member-accent);
+}
+
+.member-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--face-pos, 50% 12%);
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.member-card:hover img {
+  transform: scale(1.04);
+}
+
+.member-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px 14px 14px;
+  background: linear-gradient(to top, rgba(5,5,8,0.95) 0%, transparent 100%);
+}
+
+.member-accent-bar {
+  width: 20px;
+  height: 2px;
+  background: var(--member-accent);
+  margin-bottom: 7px;
+}
+
+.member-name {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.member-theme {
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+}
+
 /* ── Mobile ── */
+@media (max-width: 900px) {
+  .members-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 @media (max-width: 640px) {
   nav { padding: 16px 24px; }
   .social-badges { gap: 10px; }
+  .members-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
 
   /* モバイルGPU負荷軽減：重いblurエフェクトを無効化 */
   .orb {
@@ -599,6 +684,106 @@ footer {
       80s シンセから J-Rock まで。<br />
       <strong>10 Voices. One Wave.</strong>
     </p>
+  </section>
+
+  <!-- Members -->
+  <section id="members" aria-label="メンバー紹介">
+    <span class="section-label reveal">Members</span>
+    <h2 class="section-title reveal">10 Voices</h2>
+    <p class="section-sub reveal">それぞれの声が、それぞれの世界を持つ</p>
+    <div class="members-grid reveal">
+
+      <div class="member-card" style="--member-accent:#E0344B; --face-pos:50% 12%">
+        <img src="images/singers/01-scarlet.jpg" alt="SCARLET" loading="lazy" />
+        <div class="member-info">
+          <div class="member-accent-bar"></div>
+          <p class="member-name">SCARLET</p>
+          <p class="member-theme">Passion &amp; Dance</p>
+        </div>
+      </div>
+
+      <div class="member-card" style="--member-accent:#1E6FE0; --face-pos:50% 12%">
+        <img src="images/singers/02-sapphire.jpg" alt="SAPPHIRE" loading="lazy" />
+        <div class="member-info">
+          <div class="member-accent-bar"></div>
+          <p class="member-name">SAPPHIRE</p>
+          <p class="member-theme">Cool &amp; Nocturnal</p>
+        </div>
+      </div>
+
+      <div class="member-card" style="--member-accent:#D81E8C; --face-pos:50% 12%">
+        <img src="images/singers/03-magenta.jpg" alt="MAGENTA" loading="lazy" />
+        <div class="member-info">
+          <div class="member-accent-bar"></div>
+          <p class="member-name">MAGENTA</p>
+          <p class="member-theme">Pop &amp; Glamour</p>
+        </div>
+      </div>
+
+      <div class="member-card" style="--member-accent:#16A380; --face-pos:50% 12%">
+        <img src="images/singers/04-emerald.jpg" alt="EMERALD" loading="lazy" />
+        <div class="member-info">
+          <div class="member-accent-bar"></div>
+          <p class="member-name">EMERALD</p>
+          <p class="member-theme">Fresh &amp; Free</p>
+        </div>
+      </div>
+
+      <div class="member-card" style="--member-accent:#E8A21C; --face-pos:50% 12%">
+        <img src="images/singers/05-gold.jpg" alt="GOLD" loading="lazy" />
+        <div class="member-info">
+          <div class="member-accent-bar"></div>
+          <p class="member-name">GOLD</p>
+          <p class="member-theme">Regal &amp; Independent</p>
+        </div>
+      </div>
+
+      <div class="member-card" style="--member-accent:#7A4FD0; --face-pos:50% 12%">
+        <img src="images/singers/06-amethyst.jpg" alt="AMETHYST" loading="lazy" />
+        <div class="member-info">
+          <div class="member-accent-bar"></div>
+          <p class="member-name">AMETHYST</p>
+          <p class="member-theme">Fantasy &amp; Dream</p>
+        </div>
+      </div>
+
+      <div class="member-card" style="--member-accent:#D8602F; --face-pos:50% 45%">
+        <img src="images/singers/07-amber.jpg" alt="AMBER" loading="lazy" />
+        <div class="member-info">
+          <div class="member-accent-bar"></div>
+          <p class="member-name">AMBER</p>
+          <p class="member-theme">Noir &amp; Twilight</p>
+        </div>
+      </div>
+
+      <div class="member-card" style="--member-accent:#4FA8C7; --face-pos:50% 0%">
+        <img src="images/singers/08-aqua.jpg" alt="AQUA" loading="lazy" />
+        <div class="member-info">
+          <div class="member-accent-bar"></div>
+          <p class="member-name">AQUA</p>
+          <p class="member-theme">Crystal &amp; Synth</p>
+        </div>
+      </div>
+
+      <div class="member-card" style="--member-accent:#C73E5A; --face-pos:50% 28%">
+        <img src="images/singers/09-rose.jpg" alt="ROSE" loading="lazy" />
+        <div class="member-info">
+          <div class="member-accent-bar"></div>
+          <p class="member-name">ROSE</p>
+          <p class="member-theme">Ballad &amp; Emotion</p>
+        </div>
+      </div>
+
+      <div class="member-card" style="--member-accent:#6E7480; --face-pos:50% 0%">
+        <img src="images/singers/10-steel.jpg" alt="STEEL" loading="lazy" />
+        <div class="member-info">
+          <div class="member-accent-bar"></div>
+          <p class="member-name">STEEL</p>
+          <p class="member-theme">Minimal &amp; Modern</p>
+        </div>
+      </div>
+
+    </div>
   </section>
 
   <!-- Listen -->
