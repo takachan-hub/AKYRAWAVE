@@ -503,10 +503,18 @@ footer {
   transition: all 0.25s ease;
 }
 
-.platform-tag:hover {
-  background: rgba(124, 106, 255, 0.18);
-  border-color: rgba(124, 106, 255, 0.4);
+a.platform-tag {
+  text-decoration: none;
+  background: rgba(124, 106, 255, 0.2);
+  border-color: rgba(124, 106, 255, 0.6);
   color: #fff;
+  box-shadow: 0 0 10px rgba(124, 106, 255, 0.3);
+}
+a.platform-tag:hover {
+  background: rgba(124, 106, 255, 0.35);
+  border-color: rgba(124, 106, 255, 0.8);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(124, 106, 255, 0.5);
 }
 
 /* ── Use in content ── */
@@ -825,7 +833,7 @@ footer {
     <p class="section-sub reveal">世界中のストリーミングサービスで配信中</p>
     <div class="platform-grid reveal">
       <a class="platform-tag" href="https://open.spotify.com/intl-ja/artist/1BSwqJObULIA6z15Jh2mrd" target="_blank" rel="noopener noreferrer">Spotify</a>
-      <span class="platform-tag">Apple Music</span>
+      <a class="platform-tag" href="https://music.apple.com/jp/artist/akyrawave/6783110788" target="_blank" rel="noopener noreferrer">Apple Music</a>
       <a class="platform-tag" href="https://music.amazon.co.jp/artists/B0GZ2WY38L/akyrawave" target="_blank" rel="noopener noreferrer">Amazon Music</a>
       <a class="platform-tag" href="https://music.youtube.com/channel/UC5NuSb5M7A_w-gW4dpHPKWw" target="_blank" rel="noopener noreferrer">YouTube Music</a>
       <span class="platform-tag">Deezer</span>
