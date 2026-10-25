@@ -88,6 +88,8 @@
   --text: #e8e8f0;
   --muted: #666680;
   --border: rgba(124, 106, 255, 0.15);
+  --spotify: #1db954;
+  --apple-music: #fa496a;
 }
 
 html { scroll-behavior: smooth; }
@@ -723,6 +725,7 @@ a.member-card:focus-visible {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 14px;
   justify-content: center;
   margin-top: 40px;
@@ -733,15 +736,18 @@ a.member-card:focus-visible {
 .hero-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  padding: 16px 34px;
+  min-height: 52px;
+  padding: 14px 28px;
   border-radius: 50px;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.08em;
+  white-space: nowrap;
   color: #fff;
   text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
 
 .hero-btn svg {
@@ -750,20 +756,52 @@ a.member-card:focus-visible {
   flex-shrink: 0;
 }
 
-.hero-btn.primary {
-  background: linear-gradient(90deg, var(--accent1), var(--accent2));
-  box-shadow: 0 0 32px rgba(124, 106, 255, 0.35);
-}
-
-.hero-btn.secondary {
-  border: 1px solid rgba(124, 106, 255, 0.6);
-  background: rgba(124, 106, 255, 0.1);
-}
-
 .hero-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 48px rgba(124, 106, 255, 0.55);
 }
+
+.hero-btn:focus-visible {
+  outline: 2px solid var(--btn-accent, #fff);
+  outline-offset: 3px;
+}
+
+/* 主ボタン：ブランドの紫。白文字の対比（約3.9:1）を満たすため大きい文字（19px太字）にする */
+.hero-btn.primary {
+  --btn-accent: #fff;
+  min-height: 60px;
+  padding: 16px 40px;
+  font-size: 19px;
+  background: var(--accent1);
+  box-shadow: 0 0 32px rgba(124, 106, 255, 0.45);
+}
+
+.hero-btn.primary:hover {
+  box-shadow: 0 0 48px rgba(124, 106, 255, 0.7);
+}
+
+/* 副ボタン：同じ大きさ・強さのダーク地。サービスの色は枠線と丸印だけに使う */
+.hero-btn.secondary {
+  min-width: 184px;
+  border: 1px solid var(--btn-accent);
+  background: #0f0f18;
+}
+
+.hero-btn.secondary::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--btn-accent);
+  flex-shrink: 0;
+}
+
+.hero-btn.secondary:hover {
+  background: color-mix(in srgb, var(--btn-accent) 16%, #0f0f18);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--btn-accent) 35%, transparent);
+}
+
+.hero-btn.spotify { --btn-accent: var(--spotify); }
+.hero-btn.apple-music { --btn-accent: var(--apple-music); }
 
 /* ── Featured Tracks ── */
 #featured {
@@ -948,8 +986,16 @@ a.member-card:focus-visible {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
-  .hero-actions { margin-top: 32px; gap: 10px; }
-  .hero-btn { padding: 14px 24px; font-size: 14px; }
+  /* スマホ：主ボタンを上段いっぱい、副ボタン2つを下段に横並び */
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: min(100%, 340px);
+    margin: 32px auto 0;
+  }
+  .hero-btn.primary { grid-column: 1 / -1; padding: 16px 20px; }
+  .hero-btn.secondary { min-width: 0; padding: 12px 10px; font-size: 14px; letter-spacing: 0.04em; }
   .hero-divider { height: 40px; margin-top: 32px; }
   #featured { padding: 56px 16px; }
   .featured-grid { gap: 14px; }
@@ -969,6 +1015,14 @@ a.member-card:focus-visible {
     animation: none;
     background: none;
   }
+}
+
+/* 背の低いスマホ（iPhone SE 等）：主ボタンが最初の画面に収まるようヒーローを詰める */
+@media (max-width: 640px) and (max-height: 700px) {
+  #hero { padding-top: 48px; }
+  .hero-logo-wrap { margin-bottom: 28px; }
+  .hero-logo { width: 120px; height: 120px; }
+  .hero-actions { margin-top: 24px; }
 }
   </style>
 </head>
@@ -1007,7 +1061,8 @@ a.member-card:focus-visible {
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>
         おすすめ3曲を聴く
       </a>
-      <a class="hero-btn secondary" href="https://open.spotify.com/intl-ja/artist/1BSwqJObULIA6z15Jh2mrd" target="_blank" rel="noopener noreferrer" data-ga-location="hero">Spotify</a>
+      <a class="hero-btn secondary spotify" href="https://open.spotify.com/intl-ja/artist/1BSwqJObULIA6z15Jh2mrd" target="_blank" rel="noopener noreferrer" data-ga-location="hero">Spotify</a>
+      <a class="hero-btn secondary apple-music" href="https://music.apple.com/jp/artist/akyrawave/6783110788" target="_blank" rel="noopener noreferrer" data-ga-location="hero">Apple Music</a>
     </div>
     <div class="hero-divider"></div>
   </section>
