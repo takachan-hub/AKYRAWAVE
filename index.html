@@ -129,7 +129,9 @@ nav {
   transition: transform 0.4s ease, border-color 0.4s ease;
 }
 
-nav.visible {
+/* キーボード操作でロゴリンクにフォーカスしたときは、ヒーロー上でも表示する */
+nav.visible,
+nav:focus-within {
   transform: translateY(0);
   border-color: var(--border);
 }
@@ -139,6 +141,12 @@ nav.visible {
   align-items: center;
   gap: 12px;
   text-decoration: none;
+  border-radius: 24px;
+}
+
+.nav-logo:focus-visible {
+  outline: 2px solid var(--accent2);
+  outline-offset: 4px;
 }
 
 .nav-logo img {
@@ -1024,6 +1032,17 @@ a.member-card:focus-visible {
   .hero-logo-wrap { margin-bottom: 28px; }
   .hero-logo { width: 120px; height: 120px; }
   .hero-actions { margin-top: 24px; }
+}
+
+/* 390px未満：ブランド名を幅に比例させ、見出しの枠（グラデーションの描画範囲）内に収める。389pxで約48pxになり390px以上と連続する */
+@media (max-width: 389px) {
+  .hero-title { font-size: 12.4vw; }
+}
+
+/* 背の低いPC・タブレット（1366×768 等）：3つのボタンが最初の画面に収まるよう上側の余白だけ詰める */
+@media (min-width: 641px) and (max-height: 820px) {
+  #hero { padding-top: 48px; }
+  .hero-logo-wrap { margin-bottom: 36px; }
 }
   </style>
 </head>
