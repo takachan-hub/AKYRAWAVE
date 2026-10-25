@@ -4,13 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DFEQND2RZT"></script>
+  <!-- Google tag (gtag.js)：正式URL（canonical と同じホスト）のときだけ計測する。プレビュー・github.io・ローカルでは送信しない。クリック計測は main.js -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DFEQND2RZT');
+    (function () {
+      var GA_MEASUREMENT_ID = 'G-DFEQND2RZT';
+      var PRODUCTION_HOSTNAME = 'akyrawave.pages.dev';
+      if (location.hostname !== PRODUCTION_HOSTNAME) return;
+      var tag = document.createElement('script');
+      tag.async = true;
+      tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+      document.head.appendChild(tag);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID);
+    })();
   </script>
 
   <!-- SEO -->
@@ -690,10 +698,246 @@ a.platform-tag:hover {
   letter-spacing: 0.12em;
 }
 
+a.member-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+a.member-card:focus-visible {
+  outline: 2px solid var(--member-accent);
+  outline-offset: 3px;
+}
+
+.member-track {
+  margin-top: 6px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--member-accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Hero actions ── */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 40px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.65s ease forwards;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 34px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.hero-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.hero-btn.primary {
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  box-shadow: 0 0 32px rgba(124, 106, 255, 0.35);
+}
+
+.hero-btn.secondary {
+  border: 1px solid rgba(124, 106, 255, 0.6);
+  background: rgba(124, 106, 255, 0.1);
+}
+
+.hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 48px rgba(124, 106, 255, 0.55);
+}
+
+/* ── Featured Tracks ── */
+#featured {
+  position: relative;
+  z-index: 1;
+  padding: 80px 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  text-align: left;
+}
+
+.track-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.track-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--member-accent);
+}
+
+.track-jacket {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px 20px 22px;
+}
+
+.track-genre {
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 10px;
+}
+
+.track-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.track-member {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 20px;
+}
+
+.track-member::before {
+  content: '';
+  width: 20px;
+  height: 2px;
+  background: var(--member-accent);
+}
+
+.track-listen {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: auto;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid var(--member-accent);
+  transition: background 0.3s ease;
+}
+
+.track-listen:hover {
+  background: var(--member-accent);
+}
+
+.track-listen svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ── Listen: 主要配信サービス ── */
+.platform-main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 760px;
+  margin: 0 auto 40px;
+}
+
+.platform-main a {
+  padding: 16px 12px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(124, 106, 255, 0.2);
+  border: 1px solid rgba(124, 106, 255, 0.6);
+  box-shadow: 0 0 10px rgba(124, 106, 255, 0.3);
+  transition: all 0.25s ease;
+}
+
+.platform-main a:hover {
+  background: rgba(124, 106, 255, 0.35);
+  border-color: rgba(124, 106, 255, 0.8);
+  box-shadow: 0 0 16px rgba(124, 106, 255, 0.5);
+}
+
+.platform-others-label {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ── Watch: 補助リンク ── */
+.watch-sub {
+  display: block;
+  margin-top: 24px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.watch-sub a {
+  color: var(--text);
+}
+
 /* ── Mobile ── */
 @media (max-width: 900px) {
   .members-grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+  .featured-grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .track-card {
+    flex-direction: row;
+  }
+  .track-jacket {
+    width: 42%;
+    flex-shrink: 0;
+    align-self: flex-start;
   }
 }
 
@@ -704,6 +948,17 @@ a.platform-tag:hover {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
+  .hero-actions { margin-top: 32px; gap: 10px; }
+  .hero-btn { padding: 14px 24px; font-size: 14px; }
+  .hero-divider { height: 40px; margin-top: 32px; }
+  #featured { padding: 56px 16px; }
+  .featured-grid { gap: 14px; }
+  .track-info { padding: 14px 14px 16px; }
+  .track-genre { font-size: 10px; letter-spacing: 0.25em; margin-bottom: 6px; }
+  .track-title { font-size: 17px; margin-bottom: 6px; }
+  .track-member { font-size: 11px; margin-bottom: 12px; }
+  .track-listen { padding: 10px 12px; font-size: 13px; }
+  .platform-main { grid-template-columns: repeat(2, 1fr); }
 
   /* モバイルGPU負荷軽減：重いblurエフェクトを無効化 */
   .orb {
@@ -747,7 +1002,63 @@ a.platform-tag:hover {
     <h1 class="hero-title">AKYRAWAVE</h1>
     <p class="hero-kana">アキラウェーブ</p>
     <p class="hero-sub">10の声が、世界を揺らす。<br />10 Voices. One Wave.</p>
+    <div class="hero-actions">
+      <a class="hero-btn primary" href="#featured">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+        おすすめ3曲を聴く
+      </a>
+      <a class="hero-btn secondary" href="https://open.spotify.com/intl-ja/artist/1BSwqJObULIA6z15Jh2mrd" target="_blank" rel="noopener noreferrer" data-ga-location="hero">Spotify</a>
+    </div>
     <div class="hero-divider"></div>
+  </section>
+
+  <!-- Featured Tracks: ジャンル別のおすすめ（リンク先は YouTube のフル音源） -->
+  <section id="featured" aria-label="おすすめ楽曲">
+    <span class="section-label reveal">Featured Tracks</span>
+    <h2 class="section-title reveal">Start Here</h2>
+    <p class="section-sub reveal">まず聴いてほしい、3つの声</p>
+    <div class="featured-grid">
+
+      <article class="track-card reveal" style="--member-accent:#E0344B">
+        <img class="track-jacket" src="images/tracks/neon-alive.jpg" alt="Neon Alive ジャケット" width="600" height="600" loading="lazy" />
+        <div class="track-info">
+          <p class="track-genre">Dance Pop</p>
+          <h3 class="track-title">Neon Alive</h3>
+          <p class="track-member">SCARLET</p>
+          <a class="track-listen" href="https://www.youtube.com/watch?v=ekHdYfCYhOo" target="_blank" rel="noopener noreferrer" data-ga-location="featured" data-track="Neon Alive" data-member="SCARLET">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+            YouTubeで聴く
+          </a>
+        </div>
+      </article>
+
+      <article class="track-card reveal" style="--member-accent:#C73E5A">
+        <img class="track-jacket" src="images/tracks/hikari-no-nioi.jpg" alt="光の匂い ジャケット" width="600" height="600" loading="lazy" />
+        <div class="track-info">
+          <p class="track-genre">Ballad</p>
+          <h3 class="track-title">光の匂い</h3>
+          <p class="track-member">ROSE</p>
+          <a class="track-listen" href="https://www.youtube.com/watch?v=jLtEQlK3APQ" target="_blank" rel="noopener noreferrer" data-ga-location="featured" data-track="光の匂い" data-member="ROSE">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+            YouTubeで聴く
+          </a>
+        </div>
+      </article>
+
+      <article class="track-card reveal" style="--member-accent:#D8602F">
+        <img class="track-jacket" src="images/tracks/mirage-line.jpg" alt="MIRAGE LINE ジャケット" width="600" height="600" loading="lazy" />
+        <div class="track-info">
+          <p class="track-genre">Synth / Rock</p>
+          <h3 class="track-title">MIRAGE LINE</h3>
+          <p class="track-member">AMBER</p>
+          <a class="track-listen" href="https://www.youtube.com/watch?v=jNfNOku4y0g" target="_blank" rel="noopener noreferrer" data-ga-location="featured" data-track="MIRAGE LINE" data-member="AMBER">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+            YouTubeで聴く
+          </a>
+        </div>
+      </article>
+
+    </div>
   </section>
 
   <!-- Concept -->
@@ -770,52 +1081,58 @@ a.platform-tag:hover {
     <span class="section-label reveal">Members</span>
     <h2 class="section-title reveal">10 Voices</h2>
     <p class="section-sub reveal">それぞれの声が、それぞれの世界を持つ</p>
+    <!-- 各カードは担当の実在曲（YouTube のフル音源）へリンク。配信を確認できた担当曲がない AMETHYST・AQUA はリンクなし -->
     <div class="members-grid reveal">
 
-      <div class="member-card" style="--member-accent:#E0344B; --face-pos:50% 12%">
+      <a class="member-card" href="https://www.youtube.com/watch?v=ekHdYfCYhOo" target="_blank" rel="noopener noreferrer" data-ga-location="members" data-track="Neon Alive" data-member="SCARLET" aria-label="SCARLET：Neon AliveをYouTubeで聴く" style="--member-accent:#E0344B; --face-pos:50% 12%">
         <img src="images/singers/01-scarlet.jpg" alt="SCARLET" loading="lazy" />
         <div class="member-info">
           <div class="member-accent-bar"></div>
           <p class="member-name">SCARLET</p>
           <p class="member-theme">Passion &amp; Dance</p>
+          <p class="member-track">♪ Neon Alive</p>
         </div>
-      </div>
+      </a>
 
-      <div class="member-card" style="--member-accent:#1E6FE0; --face-pos:50% 12%">
+      <a class="member-card" href="https://www.youtube.com/watch?v=hvczYNTZaXk" target="_blank" rel="noopener noreferrer" data-ga-location="members" data-track="Endless Drive" data-member="SAPPHIRE" aria-label="SAPPHIRE：Endless DriveをYouTubeで聴く" style="--member-accent:#1E6FE0; --face-pos:50% 12%">
         <img src="images/singers/02-sapphire.jpg" alt="SAPPHIRE" loading="lazy" />
         <div class="member-info">
           <div class="member-accent-bar"></div>
           <p class="member-name">SAPPHIRE</p>
           <p class="member-theme">Cool &amp; Nocturnal</p>
+          <p class="member-track">♪ Endless Drive</p>
         </div>
-      </div>
+      </a>
 
-      <div class="member-card" style="--member-accent:#D81E8C; --face-pos:50% 12%">
+      <a class="member-card" href="https://www.youtube.com/watch?v=cW6N0STo77w" target="_blank" rel="noopener noreferrer" data-ga-location="members" data-track="Pop Pop Pop" data-member="MAGENTA" aria-label="MAGENTA：Pop Pop PopをYouTubeで聴く" style="--member-accent:#D81E8C; --face-pos:50% 12%">
         <img src="images/singers/03-magenta.jpg" alt="MAGENTA" loading="lazy" />
         <div class="member-info">
           <div class="member-accent-bar"></div>
           <p class="member-name">MAGENTA</p>
           <p class="member-theme">Pop &amp; Glamour</p>
+          <p class="member-track">♪ Pop Pop Pop</p>
         </div>
-      </div>
+      </a>
 
-      <div class="member-card" style="--member-accent:#16A380; --face-pos:50% 12%">
+      <a class="member-card" href="https://www.youtube.com/watch?v=knu2MGlBErE" target="_blank" rel="noopener noreferrer" data-ga-location="members" data-track="Rise Up Into The Morning Light" data-member="EMERALD" aria-label="EMERALD：Rise Up Into The Morning LightをYouTubeで聴く" style="--member-accent:#16A380; --face-pos:50% 12%">
         <img src="images/singers/04-emerald.jpg" alt="EMERALD" loading="lazy" />
         <div class="member-info">
           <div class="member-accent-bar"></div>
           <p class="member-name">EMERALD</p>
           <p class="member-theme">Fresh &amp; Free</p>
+          <p class="member-track">♪ Rise Up Into The Morning Light</p>
         </div>
-      </div>
+      </a>
 
-      <div class="member-card" style="--member-accent:#E8A21C; --face-pos:50% 12%">
+      <a class="member-card" href="https://www.youtube.com/watch?v=ZUM7gD1sigI" target="_blank" rel="noopener noreferrer" data-ga-location="members" data-track="GLOW UP GIRL" data-member="GOLD" aria-label="GOLD：GLOW UP GIRLをYouTubeで聴く" style="--member-accent:#E8A21C; --face-pos:50% 12%">
         <img src="images/singers/05-gold.jpg" alt="GOLD" loading="lazy" />
         <div class="member-info">
           <div class="member-accent-bar"></div>
           <p class="member-name">GOLD</p>
           <p class="member-theme">Regal &amp; Independent</p>
+          <p class="member-track">♪ GLOW UP GIRL</p>
         </div>
-      </div>
+      </a>
 
       <div class="member-card" style="--member-accent:#7A4FD0; --face-pos:50% 12%">
         <img src="images/singers/06-amethyst.jpg" alt="AMETHYST" loading="lazy" />
@@ -826,14 +1143,15 @@ a.platform-tag:hover {
         </div>
       </div>
 
-      <div class="member-card" style="--member-accent:#D8602F; --face-pos:50% 45%">
+      <a class="member-card" href="https://www.youtube.com/watch?v=YVmA6xRSXfE" target="_blank" rel="noopener noreferrer" data-ga-location="members" data-track="Sunday Wire" data-member="AMBER" aria-label="AMBER：Sunday WireをYouTubeで聴く" style="--member-accent:#D8602F; --face-pos:50% 45%">
         <img src="images/singers/07-amber.jpg" alt="AMBER" loading="lazy" />
         <div class="member-info">
           <div class="member-accent-bar"></div>
           <p class="member-name">AMBER</p>
           <p class="member-theme">Noir &amp; Twilight</p>
+          <p class="member-track">♪ Sunday Wire</p>
         </div>
-      </div>
+      </a>
 
       <div class="member-card" style="--member-accent:#4FA8C7; --face-pos:50% 0%">
         <img src="images/singers/08-aqua.jpg" alt="AQUA" loading="lazy" />
@@ -844,23 +1162,25 @@ a.platform-tag:hover {
         </div>
       </div>
 
-      <div class="member-card" style="--member-accent:#C73E5A; --face-pos:50% 28%">
+      <a class="member-card" href="https://www.youtube.com/watch?v=jLtEQlK3APQ" target="_blank" rel="noopener noreferrer" data-ga-location="members" data-track="光の匂い" data-member="ROSE" aria-label="ROSE：光の匂いをYouTubeで聴く" style="--member-accent:#C73E5A; --face-pos:50% 28%">
         <img src="images/singers/09-rose.jpg" alt="ROSE" loading="lazy" />
         <div class="member-info">
           <div class="member-accent-bar"></div>
           <p class="member-name">ROSE</p>
           <p class="member-theme">Ballad &amp; Emotion</p>
+          <p class="member-track">♪ 光の匂い</p>
         </div>
-      </div>
+      </a>
 
-      <div class="member-card" style="--member-accent:#6E7480; --face-pos:50% 0%">
+      <a class="member-card" href="https://www.youtube.com/watch?v=qBQX2H0o0nA" target="_blank" rel="noopener noreferrer" data-ga-location="members" data-track="NEON REBELLION" data-member="STEEL" aria-label="STEEL：NEON REBELLIONをYouTubeで聴く" style="--member-accent:#6E7480; --face-pos:50% 0%">
         <img src="images/singers/10-steel.jpg" alt="STEEL" loading="lazy" />
         <div class="member-info">
           <div class="member-accent-bar"></div>
           <p class="member-name">STEEL</p>
           <p class="member-theme">Minimal &amp; Modern</p>
+          <p class="member-track">♪ NEON REBELLION</p>
         </div>
-      </div>
+      </a>
 
     </div>
   </section>
@@ -870,11 +1190,14 @@ a.platform-tag:hover {
     <span class="section-label reveal">Listen</span>
     <h2 class="section-title reveal">Available on 24+ Platforms</h2>
     <p class="section-sub reveal">世界中のストリーミングサービスで配信中</p>
+    <div class="platform-main reveal">
+      <a href="https://open.spotify.com/intl-ja/artist/1BSwqJObULIA6z15Jh2mrd" target="_blank" rel="noopener noreferrer" data-ga-location="listen">Spotify</a>
+      <a href="https://music.apple.com/jp/artist/akyrawave/6783110788" target="_blank" rel="noopener noreferrer" data-ga-location="listen">Apple Music</a>
+      <a href="https://music.amazon.co.jp/artists/B0GZ2WY38L/akyrawave" target="_blank" rel="noopener noreferrer" data-ga-location="listen">Amazon Music</a>
+      <a href="https://music.youtube.com/channel/UC5NuSb5M7A_w-gW4dpHPKWw" target="_blank" rel="noopener noreferrer" data-ga-location="listen">YouTube Music</a>
+    </div>
+    <p class="platform-others-label reveal">そのほかの配信サービス</p>
     <div class="platform-grid reveal">
-      <a class="platform-tag" href="https://open.spotify.com/intl-ja/artist/1BSwqJObULIA6z15Jh2mrd" target="_blank" rel="noopener noreferrer">Spotify</a>
-      <a class="platform-tag" href="https://music.apple.com/jp/artist/akyrawave/6783110788" target="_blank" rel="noopener noreferrer">Apple Music</a>
-      <a class="platform-tag" href="https://music.amazon.co.jp/artists/B0GZ2WY38L/akyrawave" target="_blank" rel="noopener noreferrer">Amazon Music</a>
-      <a class="platform-tag" href="https://music.youtube.com/channel/UC5NuSb5M7A_w-gW4dpHPKWw" target="_blank" rel="noopener noreferrer">YouTube Music</a>
       <span class="platform-tag">Deezer</span>
       <span class="platform-tag">Tidal</span>
       <span class="platform-tag">AWA</span>
@@ -909,13 +1232,14 @@ a.platform-tag:hover {
     <span class="section-label reveal">Watch</span>
     <h2 class="section-title reveal">Listen on YouTube</h2>
     <p class="section-sub reveal">最新トラックをYouTubeでも公開中</p>
-    <a class="watch-cta reveal" href="https://www.youtube.com/playlist?list=UU5NuSb5M7A_w-gW4dpHPKWw" target="_blank" rel="noopener noreferrer">
+    <a class="watch-cta reveal" href="https://www.youtube.com/channel/UCkEpn-EPH050I1y1bDxkRyw" target="_blank" rel="noopener noreferrer" data-ga-location="watch">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
         <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/>
       </svg>
-      全曲を見る
+      公式チャンネルを見る
     </a>
+    <p class="watch-sub reveal"><a href="https://www.youtube.com/playlist?list=UU5NuSb5M7A_w-gW4dpHPKWw" target="_blank" rel="noopener noreferrer" data-ga-location="watch">全曲をフル音源で聴く（YouTube）</a></p>
   </section>
 
   <!-- Use in your content -->
@@ -943,30 +1267,30 @@ a.platform-tag:hover {
       <span class="footer-logo-text">AKYRAWAVE</span>
     </div>
     <div class="footer-social" role="navigation" aria-label="SNSリンク">
-      <a href="https://www.instagram.com/akyrawave/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+      <a href="https://www.instagram.com/akyrawave/" target="_blank" rel="noopener noreferrer" data-ga-location="footer" aria-label="Instagram">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
           <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
           <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
         </svg>
       </a>
-      <a href="https://www.youtube.com/channel/UCkEpn-EPH050I1y1bDxkRyw" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+      <a href="https://www.youtube.com/channel/UCkEpn-EPH050I1y1bDxkRyw" target="_blank" rel="noopener noreferrer" data-ga-location="footer" aria-label="YouTube">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
           <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/>
         </svg>
       </a>
-      <a href="https://www.tiktok.com/@akyrawave" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+      <a href="https://www.tiktok.com/@akyrawave" target="_blank" rel="noopener noreferrer" data-ga-location="footer" aria-label="TikTok">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.87a8.22 8.22 0 0 0 4.83 1.56V7a4.85 4.85 0 0 1-1.06-.31z"/>
         </svg>
       </a>
-      <a href="https://x.com/AKYRAWAVE" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+      <a href="https://x.com/AKYRAWAVE" target="_blank" rel="noopener noreferrer" data-ga-location="footer" aria-label="X (Twitter)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
       </a>
-      <a href="https://www.facebook.com/AKYRAWAVE/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      <a href="https://www.facebook.com/AKYRAWAVE/" target="_blank" rel="noopener noreferrer" data-ga-location="footer" aria-label="Facebook">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
         </svg>

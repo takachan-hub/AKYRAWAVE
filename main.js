@@ -81,3 +81,58 @@ const revealObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── GA4 クリック計測 ──
+// - 楽曲・配信サービス・SNS のリンククリックをイベントで送信。種類はリンク先（href）で判定
+//   youtube_click / instagram_click：月次Webレポートの標準イベント（「来店・関心につながる行動」に集計）
+//   streaming_click：Spotify・Apple Music・Amazon Music（AKYRAWAVE 独自。月次Webレポートの集計対象外）
+// - 押された場所は data-ga-location、曲名・担当は data-track / data-member
+// - window.gtag は正式ホストでのみ定義される（index.html の GA4 タグ）。プレビュー・ローカルでは何も送らない
+const MAX_PARAM_LENGTH = 100; // GA4 のイベントパラメータ値の上限
+
+const STREAMING_PLATFORMS = [
+  { platform: 'spotify', matches: (host) => /(^|\.)spotify\.com$/.test(host) },
+  { platform: 'apple_music', matches: (host) => host === 'music.apple.com' },
+  { platform: 'amazon_music', matches: (host) => /^music\.amazon\./.test(host) },
+];
+
+const streamingPlatformOf = (url) => {
+  const found = STREAMING_PLATFORMS.find((item) => item.matches(url.hostname));
+  return found ? found.platform : null;
+};
+
+const LINK_EVENTS = [
+  { eventName: 'youtube_click', matches: (url) => /(^|\.)youtube\.com$/.test(url.hostname) || url.hostname === 'youtu.be' },
+  { eventName: 'instagram_click', matches: (url) => /(^|\.)instagram\.com$/.test(url.hostname) },
+  { eventName: 'streaming_click', matches: (url) => streamingPlatformOf(url) !== null },
+];
+
+const linkText = (link) =>
+  (link.getAttribute('aria-label') || link.textContent).replace(/\s+/g, ' ').trim();
+
+const buildClickParams = (link, url, eventName) => {
+  const { gaLocation, track, member } = link.dataset;
+  return {
+    link_location: gaLocation || 'other',
+    link_text: linkText(link).slice(0, MAX_PARAM_LENGTH),
+    link_url: `${url.origin}${url.pathname}`.slice(0, MAX_PARAM_LENGTH),
+    ...(track ? { track_title: track.slice(0, MAX_PARAM_LENGTH) } : {}),
+    ...(member ? { member } : {}),
+    ...(eventName === 'streaming_click' ? { platform: streamingPlatformOf(url) } : {}),
+  };
+};
+
+document.addEventListener('click', (event) => {
+  if (typeof window.gtag !== 'function') return;
+  const link = event.target.closest('a[href]');
+  if (!link) return;
+  let url;
+  try {
+    url = new URL(link.href);
+  } catch (error) {
+    return;
+  }
+  const match = LINK_EVENTS.find((item) => item.matches(url));
+  if (!match) return;
+  window.gtag('event', match.eventName, buildClickParams(link, url, match.eventName));
+});
