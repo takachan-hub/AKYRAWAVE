@@ -88,6 +88,7 @@
   --text: #e8e8f0;
   --muted: #666680;
   --border: rgba(124, 106, 255, 0.15);
+  --accent1-deep: #6a56ff; /* --accent1 と同系色で白文字との対比 4.79:1（文字を載せる面に使う） */
   --spotify: #1db954;
   --apple-music: #fa496a;
 }
@@ -765,13 +766,13 @@ a.member-card:focus-visible {
   outline-offset: 3px;
 }
 
-/* 主ボタン：ブランドの紫。白文字の対比（約3.9:1）を満たすため大きい文字（19px太字）にする */
+/* 主ボタン：ブランドの紫を少し深めた面（白文字 4.79:1）。光彩はブランドの紫のまま */
 .hero-btn.primary {
   --btn-accent: #fff;
   min-height: 60px;
   padding: 16px 40px;
   font-size: 19px;
-  background: var(--accent1);
+  background: var(--accent1-deep);
   box-shadow: 0 0 32px rgba(124, 106, 255, 0.45);
 }
 
